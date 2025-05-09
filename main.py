@@ -3,6 +3,8 @@ from constants import *
 from player import * 
 from asteroid import *
 from asteroidfield import *
+import sys
+
 
 def main():
     print(f"Starting Asteroids!")
@@ -38,6 +40,10 @@ def main():
         screen.fill("#000000")
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                sys.exit("Collision detected")
 
         #re-draw drawable things
         for drawthis in drawable:
