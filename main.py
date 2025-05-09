@@ -1,6 +1,8 @@
 import pygame
 from constants import *
 from player import * 
+from asteroid import *
+from asteroidfield import *
 
 def main():
     print(f"Starting Asteroids!")
@@ -12,18 +14,21 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
-    #so this makes 2 groups, simple (dunow why its called sprite)
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-
+    asteroids = pygame.sprite.Group()
+    
     #create the screen with correct size from params
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
+    
     #add the player class to the drawable and updatable group
     Player.containers = (drawable, updatable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
     #create new player instance
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroidField = AsteroidField()
     
     while True:
         for event in pygame.event.get():
@@ -42,7 +47,7 @@ def main():
         pygame.display.flip()
 
         #calc time taken to re-draw screen
-        dt =  clock.tick(60) / 1000
+        dt = clock.tick(60) / 1000
 
 
 if __name__ == "__main__":
