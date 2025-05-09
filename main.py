@@ -12,8 +12,17 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    #so this makes 2 groups, simple (dunow why its called sprite)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    #create the screen with correct size from params
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    #add the player class to the drawable and updatable group
+    Player.containers = (drawable, updatable)
+
+    #create new player instance
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
     while True:
@@ -23,8 +32,11 @@ def main():
 
         screen.fill("#000000")
 
-        #re-draw player
-        player.draw(screen)
+        updatable.update(dt)
+
+        #re-draw drawable things
+        for drawthis in drawable:
+            drawthis.draw(screen)
 
         #redraw  map, requested todo last (after player? weird?)        
         pygame.display.flip()
