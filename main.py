@@ -22,13 +22,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
     #add the player class to the drawable and updatable group
-    Player.containers = (drawable, updatable)
     Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable #single things dont need no parenthesis
+    asteroidField = AsteroidField()
 
     #create new player instance
+    Player.containers = (drawable, updatable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    asteroidField = AsteroidField()
     
     while True:
         for event in pygame.event.get():
